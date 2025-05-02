@@ -18,12 +18,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+          cache: 'pnpm'
 
-      - name: Install deps
+      - name: Enable corepack and install pnpm
         run: |
           corepack enable
-          pnpm install
+          corepack prepare pnpm@latest --activate
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Run Lint
         run: pnpm run lint
