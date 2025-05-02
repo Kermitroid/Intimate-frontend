@@ -11,6 +11,6 @@ export default defineConfig({
     emptyOutDir: true
   },
   define: {
-    'import.meta.env.VITE_API_BASE': JSON.stringify(process.env.VITE_API_BASE || 'https://intimate-backend.onrender.com/api')
+    'import.meta.env.VITE_API_BASE': JSON.stringify(process.env.VITE_API_BASE || '')
   }
 });
