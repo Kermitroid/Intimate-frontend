@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://intimate3.onrender.com/rnd_7PPp35e64aybiWxtMKt3haLmFn0v/$1"
+      "destination": "https://intimate-backend.onrender.com/api"
     },
     {
       "source": "/(.*)",
@@ -13,3 +13,4 @@
     }
   ]
 }
+
