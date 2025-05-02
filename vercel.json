@@ -1,0 +1,15 @@
+{
+  "buildCommand": "pnpm install && pnpm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://intimate3.onrender.com/rnd_7PPp35e64aybiWxtMKt3haLmFn0v/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

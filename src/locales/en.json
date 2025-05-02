@@ -1,0 +1,14 @@
+{
+  "home": "Home",
+  "explore": "Explore",
+  "profile": "My Profile",
+  "dashboard": "Dashboard",
+  "likes": "Likes",
+  "views": "Views",
+  "tips": "Tips",
+  "welcome": "Welcome, {{name}}!",
+  "thankYouForTip": "Thank you for your tip!",
+  "totalTips": "Total Tips",
+  "totalLikes": "Total Likes",
+  "totalViews": "Total Views"
+}

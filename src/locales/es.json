@@ -1,0 +1,14 @@
+{
+  "home": "Inicio",
+  "explore": "Explorar",
+  "profile": "Mi Perfil",
+  "dashboard": "Tablero",
+  "likes": "Me gusta",
+  "views": "Vistas",
+  "tips": "Propinas",
+  "welcome": "\u00a1Bienvenido, {{name}}!",
+  "thankYouForTip": "\u00a1Gracias por tu propina!",
+  "totalTips": "Propinas totales",
+  "totalLikes": "Me gusta total",
+  "totalViews": "Vistas totales"
+}

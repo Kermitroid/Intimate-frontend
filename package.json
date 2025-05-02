@@ -1,0 +1,60 @@
+{
+  "name": "bolttube",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.0",
+    "axios": "^1.9.0",
+    "bcryptjs": "^3.0.2",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "esbuild": "^0.25.3",
+    "eslint": "latest",
+    "express": "^4.18.2",
+    "framer-motion": "^12.9.2",
+    "hls.js": "latest",
+    "i18next": "^25.0.2",
+    "jsonwebtoken": "^9.0.0",
+    "lucide-react": "^0.503.0",
+    "multer": "^1.4.5-lts.2",
+    "node-media-server": "^2.2.6",
+    "postcss": "^8.4.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-helmet-async": "^2.0.5",
+    "react-i18next": "^15.5.1",
+    "react-intersection-observer": "^9.16.0",
+    "react-router-dom": "^7.5.3",
+    "render": "^0.1.4",
+    "socket.io": "^4.7.2",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^3.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-react": "^7.37.5",
+    "prettier": "^3.5.3",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.31.1",
+    "vite": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
+  "author": "Tube Platform Dev Team",
+  "license": "MIT",
+  "description": "Full-featured creator-first video platform with live streaming, monetization, and community features."
+}

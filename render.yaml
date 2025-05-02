@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: tube-backend
+    env: node
+    plan: free
+    buildCommand: pnpm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+    rootDir: server
+
+  - type: web
+    name: tube-frontend
+    env: static
+    plan: free
+    buildCommand: pnpm install && pnpm run build
+    staticPublishPath: dist
+    rootDir: .
+    redirects:
+      - source: /*
+        destination: /index.html
+        statusCode: 200
