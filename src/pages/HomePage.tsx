@@ -1,49 +1,26 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { getAllVideos } from '../lib/api/videos';
+import VideoGrid from '../components/video/VideoGrid';
 
-interface DataItem {
-  id: string;
-  title: string;
-  description?: string;
-  src?: string;
-}
-
-const HomePage: React.FC = () => {
-  const [data, setData] = useState<DataItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const HomePage = () => {
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchVideos = async () => {
       try {
-        // Replace with your actual API call
-        const response = await fetch("/api/videos");
-        const result = await response.json();
-        setData(result);
-        setLoading(false);
+        const data = await getAllVideos();
+        setVideos(data);
       } catch (err) {
-        setError("Failed to load videos.");
-        setLoading(false);
+        console.error('Failed to fetch videos', err);
       }
     };
-
-    fetchData();
+    fetchVideos();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
   return (
-    <div>
-      <h1>Home</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>
-            <h2>{item.title}</h2>
-            {item.description && <p>{item.description}</p>}
-            {item.src && <video src={item.src} controls width="300" />}
-          </li>
-        ))}
-      </ul>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Latest Videos</h1>
+      <VideoGrid videos={videos} />
     </div>
   );
 };

@@ -19,7 +19,7 @@ export interface Video {
   title: string;
   description: string;
   thumbnail: string;
-  duration: number; // in seconds
+  duration: number; // Duration in seconds
   uploadDate: string;
   creator: User;
   videoUrl: string;
@@ -32,7 +32,7 @@ export interface Video {
 export interface Comment {
   id: string;
   text: string;
-  timestamp: number; // in seconds, for timestamped comments
+  timestamp: number; // Timestamp in seconds for pinned/timed comments
   user: User;
   likes: number;
   createdAt: string;

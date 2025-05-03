@@ -1,48 +1,37 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import { uploadVideo } from '../../lib/api/videos';
+import { useNavigate } from 'react-router-dom';
 
-  const [preview, setPreview] = useState("");
-
-  useEffect(() => {
-    if (thumbnail) setPreview(thumbnail);
-  }, [thumbnail]);
-
+const UploadForm = () => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  const [thumbnail, setThumbnail] = useState("");
+  const navigate = useNavigate();
 
-  const [preview, setPreview] = useState("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!file) return alert('Please select a file');
 
-  useEffect(() => {
-    if (thumbnail) setPreview(thumbnail);
-  }, [thumbnail]);
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('video', file);
 
-  
-    if (!file) return alert("Please select a video file.");
-    
-    formData.append("file", file);
-    formData.append("title", title);
-    formData.append("thumbnail", thumbnail);
     try {
-      await axios.post("/api/videos/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + typeof window !== "undefined" && localStorage.getItem("token")
-        }
-      });
-      alert("Upload successful!");
+      await uploadVideo(formData);
+      navigate('/');
     } catch (err) {
-      alert("Upload failed");
+      alert('Video upload failed');
     }
   };
 
   return (
-    <form onSubmit={handleUpload} className="p-4 border rounded bg-white shadow-md">
-      <input value={title} onChange={e => setTitle(e.target.value)} ="Video Title" required className="border px-2 py-1 mr-2" />
-      <input value={thumbnail} onBlur={() => setPreview(thumbnail)} onChange={e => setThumbnail(e.target.value)} ="Thumbnail URL" required className="border px-2 py-1 mr-2" />
-      <input type="file" accept="video/mp4" onChange={e => setFile(e.target.files?.[0] || null)} required className="mr-2" />
-      <button type="submit" type="submit" className="bg-purple-600 text-white px-3 py-1">Upload</button>
-    {preview && <img src={preview} alt="Thumbnail preview" className="w-40 h-auto mt-2" />}
-</form>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md mx-auto mt-10">
+      <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+      <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+      <input type="file" accept="video/*" onChange={(e) => setFile(e.target.files?.[0] || null)} required />
+      <button type="submit">Upload</button>
+    </form>
   );
 };
 

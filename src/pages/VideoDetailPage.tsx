@@ -1,72 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import {
-  ThumbsUp, ThumbsDown, Share, Bookmark, MessageCircle,
-  Flag, Clock, CheckCircle, MoreHorizontal, BarChart2, Send,
-} from "lucide-react";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getVideoById } from '../lib/api/videos';
 
-interface Video {
-  id: number;
-  title: string;
-  description: string;
-  views: number;
-  likes: number;
-  dislikes: number;
-  uploadedAt: string;
-}
-
-const VideoDetailPage: React.FC = () => {
+const VideoDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [video, setVideo] = useState<Video | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [video, setVideo] = useState<any>(null);
 
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await fetch(`/api/videos/${id}`); // Replace with your real endpoint
-        const data = await response.json();
+        const data = await getVideoById(id!);
         setVideo(data);
-        setLoading(false);
       } catch (err) {
-        setError("Failed to load video.");
-        setLoading(false);
+        console.error('Failed to fetch video', err);
       }
     };
-
-    fetchVideo();
+    if (id) fetchVideo();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!video) return <div>No video found.</div>;
+  if (!video) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="p-4">
-      <motion.h1 className="text-2xl font-bold mb-2">{video.title}</motion.h1>
-      <p className="mb-4 text-gray-600">{video.description}</p>
-
-      <div style={{ margin: "20px 0" }}>
-        <ins className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-2488178052505143"
-          data-ad-slot="1234567890"
-          data-ad-format="auto"
-          data-full-width-responsive="true"></ins>
-      </div>
-
-      <div className="flex items-center space-x-4 text-gray-700 mb-4">
-        <ThumbsUp /> {video.likes}
-        <ThumbsDown /> {video.dislikes}
-        <MessageCircle />
-        <Share />
-        <Bookmark />
-      </div>
-
-      <div className="text-sm text-gray-500">
-        Views: {video.views} • Uploaded: {new Date(video.uploadedAt).toLocaleDateString()}
-      </div>
+    <div className="p-4 max-w-3xl mx-auto">
+      <video controls className="w-full rounded">
+        <source src={video.videoUrl} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <h1 className="text-2xl font-bold mt-4">{video.title}</h1>
+      <p className="text-gray-600 mt-2">{video.description}</p>
+      <p className="text-sm text-gray-400 mt-1">Uploaded by {video.creator?.username} on {new Date(video.createdAt).toLocaleDateString()}</p>
     </div>
   );
 };

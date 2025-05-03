@@ -1,47 +1,31 @@
-import React, { useEffect, useState } from "react";
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-interface DataItem {
-  id: number;
-  title: string;
-  description?: string;
-}
+const RegisterPage = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-const RegisterPage: React.FC = () => {
-  const [data, setData] = useState<DataItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/register-info"); // Replace with actual API
-        const result = await response.json();
-        setData(result);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load data.");
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await register(username, email, password);
+      navigate('/');
+    } catch (err) {
+      alert('Registration failed');
+    }
+  };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>
-            <h2>{item.title}</h2>
-            {item.description && <p>{item.description}</p>}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
+      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+      <button type="submit">Register</button>
+    </form>
   );
 };
 
